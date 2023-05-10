@@ -12,6 +12,14 @@ Account::Account(const Account& other)
 
 Account::~Account() {}
 
+Account& Account::operator=(const Account& other) {
+    name_ = other.name_;
+    balance_ = other.balance_;
+    accountNumber_ = other.accountNumber_;
+    routingNumber_ = other.routingNumber_;
+    return *this;
+}
+
 std::string Account::getName() const {
     return name_;
 }
