@@ -9,6 +9,13 @@ User::User(const User& other) : name_(other.name_), email_(other.email_), passwo
 
 User::~User() {}
 
+User& User::operator=(const User& other) {
+    name_ = other.name_;
+    email_ = other.email_;
+    password_ = other.password_;
+    return *this;
+}
+
 std::string User::getName() const {
     return name_;
 }
