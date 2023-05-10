@@ -14,6 +14,7 @@ class Account {
         Account(const std::string& name, const int& balance, const int& accountNumber, const int& routingNumber);
         Account(const Account& other);
         ~Account();
+        Account& operator=(const Account& other);
         std::string getName() const;
         int getBalance() const;
         int getAccountNumber() const;
