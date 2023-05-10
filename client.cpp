@@ -2,21 +2,26 @@
 
 Client::Client() {}
 
-Client::Client(const User& user, const std::vector<Account>& accounts)
-: user_(user), accounts_(accounts) {}
+Client::Client(const User& user, const int& pin, const std::vector<Account>& accounts)
+: user_(user), pin_(pin), accounts_(accounts) {}
 
-Client::Client(const Client& other) : user_(other.user_), accounts_(other.accounts_) {}
+Client::Client(const Client& other) : user_(other.user_), pin_(other.pin_), accounts_(other.accounts_) {}
 
 Client::~Client() {}
 
 Client& Client::operator=(const Client& other) {
     user_ = other.user_;
+    pin_ = other.pin_;
     accounts_ = other.accounts_;
     return *this;
 }
 
 User Client::getUser() const {
     return user_;
+}
+
+int Client::getPin() const {
+    return pin_;
 }
 
 std::vector<Account> Client::getAccounts() const {
@@ -55,6 +60,10 @@ void Client::updateUserPassword(const std::string& password) {
     }
 
     user_.setPassword(password);
+}
+
+void Client::updatePin(const int& pin) {
+    pin_ = pin;
 }
 
 void Client::updateAccountName(const std::string& accountName, const std::string& updatedName) {
