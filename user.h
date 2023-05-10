@@ -13,6 +13,7 @@ class User {
         User(const std::string& name, const std::string& email, const std::string& password);
         User(const User& other);
         ~User();
+        User& operator=(const User& other);
         std::string getName() const;
         std::string getEmail() const;
         std::string getPassword() const;
