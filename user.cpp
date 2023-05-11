@@ -1,23 +1,32 @@
 #include "user.h"
 
-User::User() : name_("NULL"), email_("NULL"), password_("NULL") {}
+User::User() : firstName_("NULL"), lastName_("NULL"), email_("NULL"), password_("NULL") {}
 
-User::User(const std::string& name, const std::string& email, const std::string& password) 
-: name_(name), email_(email), password_(password) {}
+User::User(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password) 
+: firstName_(firstName), lastName_(lastName), email_(email), password_(password) {}
 
-User::User(const User& other) : name_(other.name_), email_(other.email_), password_(other.password_) {}
+User::User(const User& other) : firstName_(other.firstName_), lastName_(other.lastName_), email_(other.email_), password_(other.password_) {}
 
 User::~User() {}
 
 User& User::operator=(const User& other) {
-    name_ = other.name_;
+    firstName_ = other.firstName_;
+    lastName_ = other.lastName_;
     email_ = other.email_;
     password_ = other.password_;
     return *this;
 }
 
-std::string User::getName() const {
-    return name_;
+std::string User::getFirstName() const {
+    return firstName_;
+}
+
+std::string User::getLastName() const {
+    return lastName_;
+}
+
+std::string User::getFullName() const {
+    return firstName_ + " " + lastName_;
 }
 
 std::string User::getEmail() const {
@@ -28,12 +37,13 @@ std::string User::getPassword() const {
     return password_;
 }
 
-void User::setName(const std::string fName, const std::string lName) {
-    if (fName.empty() || lName.empty()) {
+void User::setName(const std::string firstName, const std::string lastName) {
+    if (firstName.empty() || lastName.empty()) {
         return;
     }
 
-    name_ = fName + " " + lName;
+    firstName_ = firstName;
+    lastName_ = lastName;
 }
 
 void User::setEmail(const std::string email) {
