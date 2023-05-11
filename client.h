@@ -13,14 +13,14 @@ class Client : public User {
         std::vector<Account> accounts_;
     public:
         Client();
-        Client(const std::string& fName, const std::string& lName, const std::string& email, const std::string& password, const int& pin);
-        Client(const std::string& fName, const std::string& lName, const std::string& email, const std::string& password, const int& pin, const std::vector<Account>& accounts);
+        Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin);
+        Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin, const std::vector<Account>& accounts);
         Client(const Client& other);
         ~Client();
         Client& operator=(const Client& other);
         int getPin() const;
         std::vector<Account> getAccounts() const;
-        void updateUserName(const std::string& fName, const std::string& lName);
+        void updateUserName(const std::string& firstName, const std::string& lastName);
         void updateUserEmail(const std::string& email);
         void updateUserPassword(const std::string& password);
         void updatePin(const int& pin);
