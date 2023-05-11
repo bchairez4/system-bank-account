@@ -38,12 +38,12 @@ bool Client::contains(const std::string& accountName) const {
     return false;
 }
 
-void Client::updateUserName(const std::string& fName, const std::string& lName) {
-    if (fName.empty() || lName.empty()) {
+void Client::updateUserName(const std::string& firstName, const std::string& lastName) {
+    if (firstName.empty() || lastName.empty()) {
         return;
     }
 
-    setName(fName, lName);
+    setName(firstName, lastName);
 }
 
 void Client::updateUserEmail(const std::string& email) {
