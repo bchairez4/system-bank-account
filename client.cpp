@@ -2,22 +2,22 @@
 
 Client::Client() {}
 
-Client::Client(const User& user, const int& pin, const std::vector<Account>& accounts)
-: user_(user), pin_(pin), accounts_(accounts) {}
+Client::Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin)
+: User(firstName, lastName, email, password), pin_(pin) {}
 
-Client::Client(const Client& other) : user_(other.user_), pin_(other.pin_), accounts_(other.accounts_) {}
+Client::Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin, const std::vector<Account>& accounts)
+: User(firstName, lastName, email, password), pin_(pin), accounts_(accounts) {}
+
+Client::Client(const Client& other) 
+: User(other.getFirstName(), other.getLastName(), other.getEmail(), other.getPassword()), pin_(other.pin_), accounts_(other.accounts_) {}
 
 Client::~Client() {}
 
 Client& Client::operator=(const Client& other) {
-    user_ = other.user_;
+    User(other.getFirstName(), other.getLastName(), other.getEmail(), other.getPassword());
     pin_ = other.pin_;
     accounts_ = other.accounts_;
     return *this;
-}
-
-User Client::getUser() const {
-    return user_;
 }
 
 int Client::getPin() const {
@@ -43,7 +43,7 @@ void Client::updateUserName(const std::string& fName, const std::string& lName) 
         return;
     }
 
-    user_.setName(fName, lName);
+    setName(fName, lName);
 }
 
 void Client::updateUserEmail(const std::string& email) {
@@ -51,7 +51,7 @@ void Client::updateUserEmail(const std::string& email) {
         return;
     }
 
-    user_.setEmail(email);
+    setEmail(email);
 }
 
 void Client::updateUserPassword(const std::string& password) {
@@ -59,10 +59,14 @@ void Client::updateUserPassword(const std::string& password) {
         return;
     }
 
-    user_.setPassword(password);
+    setPassword(password);
 }
 
 void Client::updatePin(const int& pin) {
+    if (pin < 0 || pin > 999999) {    //6-digit limit for pin number
+        return;
+    }
+
     pin_ = pin;
 }
 
