@@ -5,18 +5,19 @@
 #include "account.cpp"
 #include <vector>
 
-class Client {
+// Derived Class
+// A Client is a User and has a pin number and list containing their account(s)
+class Client : public User {
     private:
-        User user_;
         int pin_;
         std::vector<Account> accounts_;
     public:
         Client();
-        Client(const User& user, const int& pin, const std::vector<Account>& accounts);
+        Client(const std::string& fName, const std::string& lName, const std::string& email, const std::string& password, const int& pin);
+        Client(const std::string& fName, const std::string& lName, const std::string& email, const std::string& password, const int& pin, const std::vector<Account>& accounts);
         Client(const Client& other);
         ~Client();
         Client& operator=(const Client& other);
-        User getUser() const;
         int getPin() const;
         std::vector<Account> getAccounts() const;
         void updateUserName(const std::string& fName, const std::string& lName);
