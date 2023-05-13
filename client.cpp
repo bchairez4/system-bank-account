@@ -1,9 +1,11 @@
 #include "client.h"
 
-Client::Client() {}
+#define ONE 1
+
+Client::Client() : pin_(0), accounts_(ONE, Account()) {}
 
 Client::Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin)
-: User(firstName, lastName, email, password), pin_(pin) {}
+: User(firstName, lastName, email, password), pin_(pin), accounts_(ONE, Account()) {}
 
 Client::Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin, const std::vector<Account>& accounts)
 : User(firstName, lastName, email, password), pin_(pin), accounts_(accounts) {}
@@ -36,6 +38,13 @@ bool Client::contains(const std::string& accountName) const {
     }
 
     return false;
+}
+
+void Client::displayAccounts() const {
+    for (std::vector<Account>::const_iterator it = accounts_.begin(); it != accounts_.end(); ++it) {
+        it->displayInfo();
+        std::cout << '\n';
+    }
 }
 
 void Client::updateUserName(const std::string& firstName, const std::string& lastName) {
@@ -105,6 +114,10 @@ void Client::removeAccount(const std::string& accountName) {
         if (it->getName() == accountName) {
             break;
         }
+    }
+
+    if (!it->zeroBalance()) {   //can't close an account that still has money in it
+        return;
     }
 
     accounts_.erase(it);
