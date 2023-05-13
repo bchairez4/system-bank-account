@@ -2,6 +2,7 @@
 #define ACCOUNT_H
 
 #include <string>
+#include <iostream>
 
 class Account {
     private:
@@ -16,14 +17,15 @@ class Account {
         ~Account();
         Account& operator=(const Account& other);
         std::string getName() const;
+        bool zeroBalance() const;
         int getBalance() const;
         int getAccountNumber() const;
         int getRoutingNumber() const;
+        void printBalance() const;
         void setName(const std::string& name);
         void setBalance(const int& balance);
         void setAccountNumber(const int& accountNumber);
         void setRoutingNumber(const int& routingNumber);
-        void printBalance() const;
 };
 
 #endif
