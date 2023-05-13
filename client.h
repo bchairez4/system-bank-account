@@ -28,6 +28,7 @@ class Client : public User {
         void addAccount(const Account& account);
         void removeAccount(const std::string& accountName);
         bool contains(const std::string& accountName) const;
+        void displayAccounts() const;
 };
 
 #endif
