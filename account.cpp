@@ -24,6 +24,10 @@ std::string Account::getName() const {
     return name_;
 }
 
+bool Account::zeroBalance() const {
+    return balance_ == EMPTY;
+}
+
 int Account::getBalance() const {
     return balance_;
 }
@@ -33,6 +37,13 @@ int Account::getAccountNumber() const {
 
 int Account::getRoutingNumber() const {
     return routingNumber_;
+}
+
+void Account::displayInfo() const {
+    std::cout << "\"" << name_ << "\"" << " Account:" << '\n'
+              << "Balance: $" << balance_ << '\n'
+              << "Account Number: " << accountNumber_ << '\n'
+              << "Routing Number: " << routingNumber_ << '\n';
 }
 
 void Account::setName(const std::string& name) {
@@ -53,9 +64,4 @@ void Account::setAccountNumber(const int& accountNumber) {
 
 void Account::setRoutingNumber(const int& routingNumber) {
     routingNumber_ = routingNumber;
-}
-
-void Account::printBalance() const {
-    //std::cout << name_ << " balance: " << '\n';
-    //std::cout << "$" << balance_ << '\n';
 }
