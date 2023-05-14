@@ -104,9 +104,9 @@ void Client::addAccount(const Account& account) {
     accounts_.push_back(account);
 }
 
-void Client::removeAccount(const std::string& accountName) {
+bool Client::removeAccount(const std::string& accountName) {
     if (!contains(accountName)) {
-        return;
+        return false;
     }
 
     std::vector<Account>::iterator it = accounts_.begin();
@@ -117,8 +117,9 @@ void Client::removeAccount(const std::string& accountName) {
     }
 
     if (!it->zeroBalance()) {   //can't close an account that still has money in it
-        return;
+        return false;
     }
 
     accounts_.erase(it);
+    return true;
 }
