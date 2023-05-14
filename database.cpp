@@ -72,7 +72,7 @@ void Database::save() {
 }
 
 // Loads a(n existing) database via a given fileName
-void Database::load(const std::string fileName) {
+void Database::load(const std::string& fileName) {
     std::ifstream file(fileName, std::ifstream::in);
 
     if (!file) {
