@@ -26,7 +26,7 @@ class Client : public User {
         void updatePin(const int& pin);
         void updateAccountName(const std::string& accountName, const std::string& updatedName);
         void addAccount(const Account& account);
-        void removeAccount(const std::string& accountName);
+        bool removeAccount(const std::string& accountName);
         bool contains(const std::string& accountName) const;
         void displayAccounts() const;
 };
