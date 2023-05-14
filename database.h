@@ -21,7 +21,7 @@ class Database {
         std::unordered_map<std::string, Client> getDatabase() const;
         void displayTable() const;
         void save();
-        void load(const std::string file);
+        void load(const std::string& file);
         void update();
         void add(const Client& client);
         void remove(const Client& client);
