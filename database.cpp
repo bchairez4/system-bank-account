@@ -71,7 +71,7 @@ void Database::save() {
     file.close();
 }
 
-// Loads a(n existing) database via a given fileName
+// Loads a(n existing) database via a given fileName, create file if it doesn't exist
 void Database::load(const std::string& fileName) {
     std::ifstream file(fileName, std::ifstream::in);
 
@@ -103,9 +103,14 @@ void Database::load(const std::string& fileName) {
     file.close();
 }
 
-// Updates an entry to the database
-void Database::update() {
-    //
+// Updates a Client's information in the database
+void Database::update(const Client& oldClient, const Client& newClient) {
+    std::unordered_map<std::string, Client>::iterator it = find(oldClient);
+
+    if (it != db_.end()) {
+        db_.erase(it);
+        db_.insert({(newClient.getPassword() + newClient.getLastName()), newClient});
+    }
 }
 
 // Adds a Client to the database
