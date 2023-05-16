@@ -79,6 +79,10 @@ void Client::updatePin(const int& pin) {
     pin_ = pin;
 }
 
+void Client::updateAccounts(const std::vector<Account>& accounts) {
+    accounts_ = accounts;
+}
+
 void Client::updateAccountName(const std::string& accountName, const std::string& updatedName) {
     if (updatedName.empty()) {
         return;
