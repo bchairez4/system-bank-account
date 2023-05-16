@@ -30,7 +30,7 @@ std::unordered_map<std::string, Client> Database::getDatabase() const {
 }
 
 void Database::displayTable() const {
-    for (std::unordered_map<std::string, Client>::const_iterator it = db_.begin(); it != db_.end(); ++it) {
+    for (std::unordered_map<std::string, Client>::const_iterator it = db_.cbegin(); it != db_.cend(); ++it) {
         std::cout << it->second.getFullName() << " "
                   << it->second.getEmail() << " "
                   << it->second.getPassword() << " "
