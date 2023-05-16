@@ -130,6 +130,5 @@ void Database::remove(const Client& client) {
 
     if (it != db_.end()) {
         db_.erase(it);
-        return;
     }
 }
