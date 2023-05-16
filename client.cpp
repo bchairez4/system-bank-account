@@ -41,7 +41,7 @@ bool Client::contains(const std::string& accountName) const {
 }
 
 void Client::displayAccounts() const {
-    for (std::vector<Account>::const_iterator it = accounts_.begin(); it != accounts_.end(); ++it) {
+    for (std::vector<Account>::const_iterator it = accounts_.cbegin(); it != accounts_.cend(); ++it) {
         it->displayInfo();
         std::cout << '\n';
     }
