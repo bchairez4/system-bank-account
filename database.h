@@ -22,7 +22,7 @@ class Database {
         void displayTable() const;
         void save();
         void load(const std::string& file);
-        void update();
+        void update(const Client& oldClient, const Client& newClient);
         void add(const Client& client);
         void remove(const Client& client);
 };
