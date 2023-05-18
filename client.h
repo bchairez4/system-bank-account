@@ -20,6 +20,8 @@ class Client : public User {
         Client& operator=(const Client& other);
         int getPin() const;
         std::vector<Account> getAccounts() const;
+        bool contains(const std::string& accountName) const;
+        void displayAccounts() const;
         void updateUserName(const std::string& firstName, const std::string& lastName);
         void updateUserEmail(const std::string& email);
         void updateUserPassword(const std::string& password);
@@ -28,8 +30,6 @@ class Client : public User {
         void updateAccountName(const std::string& accountName, const std::string& updatedName);
         void addAccount(const Account& account);
         bool removeAccount(const std::string& accountName);
-        bool contains(const std::string& accountName) const;
-        void displayAccounts() const;
 };
 
 #endif
