@@ -29,6 +29,30 @@ std::unordered_map<std::string, Client> Database::getDatabase() const {
     return db_;
 }
 
+Client Database::authenticate(const std::string& email, const std::string& password) const {
+    Client user;
+
+    std::unordered_map<std::string, Client>::const_iterator it = db_.find(email);
+
+    if (it != db_.end()) {
+        user = it->second;
+    }
+
+    return user;
+}
+
+bool Database::contains(const std::string& email) const {
+    if (db_.empty()) {
+        return false;
+    }
+
+    if (db_.count(email) > 0) {
+        return true;
+    }
+
+    return false;
+}
+
 void Database::displayTable() const {
     for (std::unordered_map<std::string, Client>::const_iterator it = db_.cbegin(); it != db_.cend(); ++it) {
         std::cout << it->second.getFullName() << " "
