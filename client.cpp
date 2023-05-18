@@ -2,7 +2,7 @@
 
 #define ONE 1
 
-Client::Client() : pin_(0), accounts_(ONE, Account()) {}
+Client::Client() : pin_(-ONE), accounts_(ONE, Account()) {}
 
 Client::Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin)
 : User(firstName, lastName, email, password), pin_(pin), accounts_(ONE, Account()) {}
