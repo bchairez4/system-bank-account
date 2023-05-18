@@ -21,7 +21,7 @@ Database& Database::operator=(const Database& other) {
 }
 
 std::unordered_map<std::string, Client>::iterator Database::find(const Client& client) {
-    std::unordered_map<std::string, Client>::iterator it = db_.find((client.getEmail() + client.getPassword()));
+    std::unordered_map<std::string, Client>::iterator it = db_.find(client.getEmail());
     return it;
 }
 
@@ -96,7 +96,7 @@ void Database::load(const std::string& fileName) {
             }
 
             Client tempClient(firstName, lastName, email, password, pin, accounts);
-            db_.insert({(email + password), tempClient});
+            db_.insert({email, tempClient});
         }
     }
 
@@ -109,7 +109,7 @@ void Database::update(const Client& oldClient, const Client& newClient) {
 
     if (it != db_.end()) {
         db_.erase(it);
-        db_.insert({(newClient.getEmail() + newClient.getPassword()), newClient});
+        db_.insert({newClient.getEmail(), newClient});
     }
 }
 
@@ -121,7 +121,7 @@ void Database::add(const Client& client) {
         return;     //already exists, exit out of function
     }
 
-    db_.insert({(client.getEmail() + client.getPassword()), client});
+    db_.insert({client.getEmail(), client});
 }
 
 // Removes a Client from the database
