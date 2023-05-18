@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <fstream>
 
-// Key is a string comprised of a concatonation of Client's email and password.
+// Key is a string that is the Client's email.
 // Value is the Client object containing all pertinent data.
 
 class Database {
