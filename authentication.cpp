@@ -29,8 +29,10 @@ bool Authentication::isSignedIn() const {
 
 void Authentication::signIn(const std::string& email, const std::string& password, const Database& database) {
     if (database.contains(email)) {
-        currentUser_ = database.authenticate(email, password);
-        signedIn_ = true;
+        if (database.authenticate(email, password)) {
+            currentUser_ = database.getClient(email);
+            signedIn_ = true;
+        }
     }
 }
 
