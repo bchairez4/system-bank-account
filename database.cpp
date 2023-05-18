@@ -29,16 +29,22 @@ std::unordered_map<std::string, Client> Database::getDatabase() const {
     return db_;
 }
 
-Client Database::authenticate(const std::string& email, const std::string& password) const {
-    Client user;
-
+Client Database::getClient(const std::string& email) const {
     std::unordered_map<std::string, Client>::const_iterator it = db_.find(email);
 
+    return it->second;
+}
+
+bool Database::authenticate(const std::string& email, const std::string& password) const {
+   std::unordered_map<std::string, Client>::const_iterator it = db_.find(email);
+
     if (it != db_.end()) {
-        user = it->second;
+        if (password == it->second.getPassword()) {
+            return true;
+        }
     }
 
-    return user;
+    return false;
 }
 
 bool Database::contains(const std::string& email) const {
