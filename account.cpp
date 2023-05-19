@@ -39,13 +39,6 @@ int Account::getRoutingNumber() const {
     return routingNumber_;
 }
 
-void Account::displayInfo() const {
-    std::cout << "\"" << name_ << "\"" << " Account:" << '\n'
-              << "Balance: $" << balance_ << '\n'
-              << "Account Number: " << accountNumber_ << '\n'
-              << "Routing Number: " << routingNumber_ << '\n';
-}
-
 void Account::setName(const std::string& name) {
     if (name.empty()) {
         return;
