@@ -6,7 +6,7 @@
 #include <fstream>
 
 // Key is a string that is the Client's email.
-// Value is the Client object containing all pertinent data.
+// Value is the Client object.
 
 class Database {
     private:
