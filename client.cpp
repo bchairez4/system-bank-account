@@ -40,9 +40,19 @@ bool Client::contains(const std::string& accountName) const {
     return false;
 }
 
+void Client::displayUser() const {
+    std::cout << "Name: " << getFullName() << '\n'
+              << "Email: " << getEmail() << '\n';
+    std::cout << '\n';
+}
+
 void Client::displayAccounts() const {
     for (std::vector<Account>::const_iterator it = accounts_.cbegin(); it != accounts_.cend(); ++it) {
-        it->displayInfo();
+        std::cout << "\"" << it->getName() << "\"" << " Account:" << '\n'
+              << "Balance: $" << it->getBalance() << '\n'
+              << "Account Number: " << it->getAccountNumber() << '\n'
+              << "Routing Number: " << it->getRoutingNumber() << '\n';
+        
         std::cout << '\n';
     }
 }
