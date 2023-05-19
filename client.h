@@ -3,6 +3,7 @@
 
 #include "user.cpp"
 #include "account.cpp"
+#include <iostream>
 #include <vector>
 
 // Derived Class
@@ -21,6 +22,7 @@ class Client : public User {
         int getPin() const;
         std::vector<Account> getAccounts() const;
         bool contains(const std::string& accountName) const;
+        void displayUser() const;
         void displayAccounts() const;
         void updateUserName(const std::string& firstName, const std::string& lastName);
         void updateUserEmail(const std::string& email);
