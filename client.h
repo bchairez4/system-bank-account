@@ -7,7 +7,7 @@
 #include <vector>
 
 // Derived Class
-// A Client is a User and has a pin number and list containing their account(s)
+// A Client is a User and has a pin number and a vector of their account(s)
 class Client : public User {
     private:
         int pin_;
