@@ -30,6 +30,16 @@ std::vector<Account> Client::getAccounts() const {
     return accounts_;
 }
 
+int Client::getAccountBalance(const std::string& accountName) const {
+    for (int i = 0; i < accounts_.size(); ++i) {
+        if (accounts_[i].getName() == accountName) {
+            return accounts_[i].getBalance();
+        }
+    }
+
+    return -1;
+}
+
 bool Client::contains(const std::string& accountName) const {
     for (int i = 0; i < accounts_.size(); ++i) {
         if (accounts_[i].getName() == accountName) {
@@ -93,8 +103,16 @@ void Client::updateAccounts(const std::vector<Account>& accounts) {
     accounts_ = accounts;
 }
 
+void Client::updateAccountBalance(const std::string& accountName, const int& amount) {
+    for (int i = 0; i < accounts_.size(); ++i) {
+        if (accounts_[i].getName() == accountName) {
+            accounts_[i].setBalance(amount);
+        }
+    }
+}
+
 void Client::updateAccountName(const std::string& accountName, const std::string& updatedName) {
-    if (updatedName.empty()) {
+    if (accountName.empty() || updatedName.empty()) {
         return;
     }
 
