@@ -36,7 +36,7 @@ void Authentication::signIn(const std::string& email, const std::string& passwor
     }
 }
 
-void Authentication::signOff() {
+void Authentication::signOut() {
     Client defaultUser;
 
     currentUser_ = defaultUser;
