@@ -21,7 +21,7 @@ class Client : public User {
         Client& operator=(const Client& other);
         int getPin() const;
         std::vector<Account> getAccounts() const;
-        int getAccountBalance(const std::string& accountName) const; //
+        int getAccountBalance(const std::string& accountName) const;
         bool contains(const std::string& accountName) const;
         void displayUser() const;
         void displayAccounts() const;
@@ -31,7 +31,7 @@ class Client : public User {
         void updatePin(const int& pin);
         void updateAccounts(const std::vector<Account>& accounts);
         void updateAccountName(const std::string& accountName, const std::string& updatedName);
-        void updateAccountBalance(const std::string& accountName, const int& balance); //
+        void updateAccountBalance(const std::string& accountName, const int& balance);
         void addAccount(const Account& account);
         bool removeAccount(const std::string& accountName);
 };
