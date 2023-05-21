@@ -17,8 +17,8 @@ class Database {
         Database(const Database& other);
         ~Database();
         Database& operator=(const Database& other);
-        std::unordered_map<std::string, Client>::iterator find(const Client& client);
         std::unordered_map<std::string, Client> getDatabase() const;
+        std::unordered_map<std::string, Client>::iterator find(const Client& client);
         Client getClient(const std::string& email) const;
         bool authenticate(const std::string& email, const std::string& password) const;
         bool contains(const std::string& email) const;
