@@ -20,13 +20,13 @@ Database& Database::operator=(const Database& other) {
     db_ = other.db_;
 }
 
+std::unordered_map<std::string, Client> Database::getDatabase() const {
+    return db_;
+}
+
 std::unordered_map<std::string, Client>::iterator Database::find(const Client& client) {
     std::unordered_map<std::string, Client>::iterator it = db_.find(client.getEmail());
     return it;
-}
-
-std::unordered_map<std::string, Client> Database::getDatabase() const {
-    return db_;
 }
 
 Client Database::getClient(const std::string& email) const {
