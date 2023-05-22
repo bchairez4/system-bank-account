@@ -12,6 +12,14 @@ System& System::operator=(const System& other) {
     database_ = other.database_;
 }
 
+Authentication System::getToken() const{
+    return token_;
+}
+
+Database System::getDatabase() const {
+    return database_;
+}
+
 void System::displayUserInfo() const {
     if (token_.isSignedIn()) {
         token_.getCurrentUser().displayUser();
@@ -30,6 +38,7 @@ bool System::authorize(const int& pin) const {
         }
     }
 
+    std::cout << "Error. Invalid pin." << '\n';
     return false;
 }
 
@@ -51,6 +60,10 @@ void System::removeCustomer(const Client& client) {
     database_.remove(client);
 }
 
+void System::updateCustomer(const Client& oldClient, const Client& newClient) {
+    //
+}
+
 void System::addAccount(const Client& client, const Account& account) {
     std::unordered_map<std::string, Client>::iterator it = database_.find(client);
 
@@ -67,12 +80,17 @@ void System::closeAccount(const Client& client, const std::string& accountName) 
     }
 }
 
+void System::updateCustomerAccount(const Client& client, const Account& oldAccount, const Account& newAccount) {
+    //
+}
+
 void System::deposit(const int& pin, const std::string& accountName, const int& amount) {
     if (!authorize(pin)) {
         return;
     }
 
     if (!token_.getCurrentUser().contains(accountName)) {
+        std::cout << "Error. Account: '\''" << accountName << "'\'' does not exist." << '\n';
         return;
     }
 
@@ -86,6 +104,7 @@ void System::withdrawl(const int& pin, const std::string& accountName, const int
     }
 
     if (!token_.getCurrentUser().contains(accountName)) {
+        std::cout << "Error. Account: '\''" << accountName << "'\'' does not exist." << '\n';
         return;
     }
 
