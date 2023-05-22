@@ -46,7 +46,8 @@ bool Client::contains(const std::string& accountName) const {
             return true;
         }
     }
-
+    
+    std::cout << accountName << " does not exist as an account." << '\n';
     return false;
 }
 
@@ -136,9 +137,9 @@ void Client::addAccount(const Account& account) {
     accounts_.push_back(account);
 }
 
-bool Client::removeAccount(const std::string& accountName) {
+void Client::removeAccount(const std::string& accountName) {
     if (!contains(accountName)) {
-        return false;
+        return;
     }
 
     std::vector<Account>::iterator it = accounts_.begin();
@@ -149,9 +150,9 @@ bool Client::removeAccount(const std::string& accountName) {
     }
 
     if (!it->zeroBalance()) {   //can't close an account that still has money in it
-        return false;
+        std::cout << it->getName() << " does not have a 0 balance! Please zero the account before closing." << '\n';
+        return;
     }
 
     accounts_.erase(it);
-    return true;
 }
