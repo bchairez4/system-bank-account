@@ -25,6 +25,7 @@ class Client : public User {
         bool contains(const std::string& accountName) const;
         void displayUser() const;
         void displayAccounts() const;
+        void updateUser(const Client& client);
         void updateUserName(const std::string& firstName, const std::string& lastName);
         void updateUserEmail(const std::string& email);
         void updateUserPassword(const std::string& password);
