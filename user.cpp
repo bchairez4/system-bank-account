@@ -37,7 +37,23 @@ std::string User::getPassword() const {
     return password_;
 }
 
-void User::setName(const std::string firstName, const std::string lastName) {
+void User::setFirstName(const std::string& firstName) {
+    if (firstName.empty()) {
+        return;
+    }
+
+    firstName_ = firstName;
+}
+
+void User::setLastName(const std::string& lastName) {
+    if (lastName.empty()) {
+        return;
+    }
+
+    lastName_ = lastName;
+}
+
+void User::setFullName(const std::string& firstName, const std::string& lastName) {
     if (firstName.empty() || lastName.empty()) {
         return;
     }
@@ -46,7 +62,7 @@ void User::setName(const std::string firstName, const std::string lastName) {
     lastName_ = lastName;
 }
 
-void User::setEmail(const std::string email) {
+void User::setEmail(const std::string& email) {
     if (email.empty()) {
         return;
     }
@@ -54,7 +70,7 @@ void User::setEmail(const std::string email) {
     email_ = email;
 }
 
-void User::setPassword(const std::string password) {
+void User::setPassword(const std::string& password) {
     if (password.empty()) {
         return;
     }
