@@ -46,7 +46,7 @@ bool Client::contains(const std::string& accountName) const {
             return true;
         }
     }
-    
+
     std::cout << accountName << " does not exist as an account." << '\n';
     return false;
 }
@@ -66,6 +66,12 @@ void Client::displayAccounts() const {
         
         std::cout << '\n';
     }
+}
+
+void Client::updateUser(const Client& client) {
+    updateUserName(client.getFirstName(), client.getLastName());
+    updateUserEmail(client.getEmail());
+    updatePin(client.getPin());
 }
 
 void Client::updateUserName(const std::string& firstName, const std::string& lastName) {
