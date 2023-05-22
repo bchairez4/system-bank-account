@@ -32,8 +32,11 @@ void Authentication::signIn(const std::string& email, const std::string& passwor
         if (database.authenticate(email, password)) {
             currentUser_ = database.getClient(email);
             signedIn_ = true;
+            return;
         }
     }
+    
+    std::cout << "Invalid email or password." << '\n';
 }
 
 void Authentication::signOut() {
