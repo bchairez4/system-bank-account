@@ -47,7 +47,7 @@ bool Client::contains(const std::string& accountName) const {
         }
     }
 
-    std::cout << accountName << " does not exist as an account." << '\n';
+    std::cout << "Error. \'" << accountName << "\' does not exist as an account." << '\n';
     return false;
 }
 
@@ -95,16 +95,25 @@ void Client::updatePin(const int& pin) {
     pin_ = pin;
 }
 
-void Client::updateAccounts(const std::vector<Account>& accounts) {
-    accounts_ = accounts;
-}
+void Client::updateAccount(const Account& oldAccount, const Account& newAccount) {
+    if (!contains(oldAccount.getName())) {
+        return;
+    }
 
-void Client::updateAccountBalance(const std::string& accountName, const int& amount) {
-    for (int i = 0; i < accounts_.size(); ++i) {
-        if (accounts_[i].getName() == accountName) {
-            accounts_[i].setBalance(amount);
+    for (int i = 0 ; i < accounts_.size(); ++i) {
+        if (accounts_[i].getName() == oldAccount.getName()) {
+            accounts_[i].setName(newAccount.getName());
+            accounts_[i].setBalance(newAccount.getBalance());
+            accounts_[i].setAccountNumber(newAccount.getAccountNumber());
+            accounts_[i].setRoutingNumber(newAccount.getRoutingNumber());
+            return;
         }
     }
+
+}
+
+void Client::updateAccounts(const std::vector<Account>& accounts) {
+    accounts_ = accounts;
 }
 
 void Client::updateAccountName(const std::string& accountName, const std::string& updatedName) {
@@ -119,9 +128,19 @@ void Client::updateAccountName(const std::string& accountName, const std::string
     for (int i = 0; i < accounts_.size(); ++ i) {
         if (accounts_[i].getName() == accountName) {
             accounts_[i].setName(updatedName);
+            return;
         }
     }
     
+}
+
+void Client::updateAccountBalance(const std::string& accountName, const int& amount) {
+    for (int i = 0; i < accounts_.size(); ++i) {
+        if (accounts_[i].getName() == accountName) {
+            accounts_[i].setBalance(amount);
+            return;
+        }
+    }
 }
 
 void Client::addAccount(const Account& account) {
@@ -145,7 +164,7 @@ void Client::removeAccount(const std::string& accountName) {
     }
 
     if (!it->zeroBalance()) {   //can't close an account that still has money in it
-        std::cout << it->getName() << " does not have a 0 balance! Please zero the account before closing." << '\n';
+        std::cout << "Error. \'" << it->getName() << "\' does not have a 0 balance! Please zero the account before closing." << '\n';
         return;
     }
 
