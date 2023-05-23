@@ -26,9 +26,6 @@ class Client : public User {
         void displayUser() const;
         void displayAccounts() const;
         void updateUser(const Client& client);
-        void updateUserName(const std::string& firstName, const std::string& lastName);
-        void updateUserEmail(const std::string& email);
-        void updateUserPassword(const std::string& password);
         void updatePin(const int& pin);
         void updateAccounts(const std::vector<Account>& accounts);
         void updateAccountName(const std::string& accountName, const std::string& updatedName);
