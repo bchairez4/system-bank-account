@@ -18,6 +18,7 @@ Database::~Database() {}
 
 Database& Database::operator=(const Database& other) {
     db_ = other.db_;
+    return *this;
 }
 
 std::unordered_map<std::string, Client> Database::getDatabase() const {
