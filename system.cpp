@@ -10,6 +10,7 @@ System::~System() {}
 System& System::operator=(const System& other) {
     token_ = other.token_;
     database_ = other.database_;
+    return *this;
 }
 
 Authentication System::getToken() const{
