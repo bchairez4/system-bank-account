@@ -69,37 +69,26 @@ void Client::displayAccounts() const {
 }
 
 void Client::updateUser(const Client& client) {
-    updateUserName(client.getFirstName(), client.getLastName());
-    updateUserEmail(client.getEmail());
-    updatePin(client.getPin());
-}
-
-void Client::updateUserName(const std::string& firstName, const std::string& lastName) {
-    if (firstName.empty() || lastName.empty()) {
-        return;
+    if (client.getFirstName() != "NULL") {
+        setFirstName(client.getFirstName());
     }
-
-    setName(firstName, lastName);
-}
-
-void Client::updateUserEmail(const std::string& email) {
-    if (email.empty()) {
-        return;
+    if (client.getLastName() != "NULL") {
+        setLastName(client.getLastName());
     }
-
-    setEmail(email);
-}
-
-void Client::updateUserPassword(const std::string& password) {
-    if (password.empty()) {
-        return;
+    if (client.getEmail() != "NULL") {
+        setEmail(client.getEmail());
     }
-
-    setPassword(password);
+    if (client.getPassword() != "NULL") {
+        setPassword(client.getPassword());
+    }
+    if (client.getPin() != -1) {
+        updatePin(client.getPin());
+    }
 }
 
 void Client::updatePin(const int& pin) {
     if (pin < 0 || pin > 999999) {    //6-digit limit for pin number
+        std::cout << "Error. Pin Number must be a 4 - 6 digit number." << '\n';
         return;
     }
 
