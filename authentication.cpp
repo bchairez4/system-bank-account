@@ -17,6 +17,7 @@ Authentication::~Authentication() {
 Authentication& Authentication::operator=(const Authentication& other) {
     currentUser_ = other.currentUser_;
     signedIn_ = other.signedIn_;
+    return *this;
 }
 
 Client Authentication::getCurrentUser() const {
