@@ -2,23 +2,36 @@
 
 #define ONE 1
 
-Client::Client() : pin_(-ONE), accounts_(ONE, Account()) {}
+Client::Client() : pin_(-ONE) {}
 
 Client::Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin)
-: User(firstName, lastName, email, password), pin_(pin), accounts_(ONE, Account()) {}
+: User(firstName, lastName, email, password), pin_(pin) {}
 
 Client::Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin, const std::vector<Account>& accounts)
-: User(firstName, lastName, email, password), pin_(pin), accounts_(accounts) {}
+: User(firstName, lastName, email, password), pin_(pin) {
+    for (int i = 0; i < accounts.size(); ++i) {
+        accounts_.push_back(accounts[i]);
+    }
+}
 
 Client::Client(const Client& other) 
-: User(other.getFirstName(), other.getLastName(), other.getEmail(), other.getPassword()), pin_(other.pin_), accounts_(other.accounts_) {}
+: User(other.getFirstName(), other.getLastName(), other.getEmail(), other.getPassword()), pin_(other.pin_) {
+    for (int i = 0; i < other.accounts_.size(); ++i) {
+        accounts_.push_back(other.accounts_[i]);
+    }
+}
 
 Client::~Client() {}
 
 Client& Client::operator=(const Client& other) {
-    User(other.getFirstName(), other.getLastName(), other.getEmail(), other.getPassword());
+    setFirstName(other.getFirstName());
+    setLastName(other.getLastName());
+    setEmail(other.getEmail());
+    setPassword(other.getPassword());
     pin_ = other.pin_;
-    accounts_ = other.accounts_;
+    for (int i = 0; i < other.accounts_.size(); ++i) {
+        accounts_.push_back(other.accounts_[i]);
+    }
     return *this;
 }
 
@@ -58,11 +71,11 @@ void Client::displayUser() const {
 }
 
 void Client::displayAccounts() const {
-    for (std::vector<Account>::const_iterator it = accounts_.cbegin(); it != accounts_.cend(); ++it) {
-        std::cout << "\"" << it->getName() << "\"" << " Account:" << '\n'
-              << "Balance: $" << it->getBalance() << '\n'
-              << "Account Number: " << it->getAccountNumber() << '\n'
-              << "Routing Number: " << it->getRoutingNumber() << '\n';
+    for (int i = 0; i < accounts_.size(); ++i) {
+        std::cout << "\"" << accounts_[i].getName() << "\"" << " Account:" << '\n'
+              << "Balance: $" << accounts_[i].getBalance() << '\n'
+              << "Account Number: " << accounts_[i].getAccountNumber() << '\n'
+              << "Routing Number: " << accounts_[i].getRoutingNumber() << '\n';
         
         std::cout << '\n';
     }
