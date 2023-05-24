@@ -158,6 +158,7 @@ void Client::updateAccountBalance(const std::string& accountName, const int& amo
 
 void Client::addAccount(const Account& account) {
     if (contains(account.getName())) {
+        std::cout << "Error. \'" << account.getName() << "\' already exists as an account." << '\n';
         return;
     }
 
@@ -166,6 +167,7 @@ void Client::addAccount(const Account& account) {
 
 void Client::removeAccount(const std::string& accountName) {
     if (!contains(accountName)) {
+        std::cout << "Error. \'" << accountName << "\' does not exist as an account." << '\n';
         return;
     }
 
