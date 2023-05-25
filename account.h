@@ -2,6 +2,7 @@
 #define ACCOUNT_H
 
 #include <string>
+#include <cstdlib> //rand()
 
 class Account {
     private:
@@ -11,6 +12,7 @@ class Account {
         int routingNumber_;
     public:
         Account();
+        Account(const std::string& name);
         Account(const std::string& name, const int& balance, const int& accountNumber, const int& routingNumber);
         Account(const Account& other);
         ~Account();
