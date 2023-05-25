@@ -2,10 +2,10 @@
 
 #define ONE 1
 
-Client::Client() : pin_(-ONE) {}
+Client::Client() : pin_(-ONE), accounts_(ONE, Account()) {}
 
 Client::Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin)
-: User(firstName, lastName, email, password), pin_(pin) {}
+: User(firstName, lastName, email, password), pin_(pin), accounts_(ONE, Account()) {}
 
 Client::Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin, const std::vector<Account>& accounts)
 : User(firstName, lastName, email, password), pin_(pin) {
@@ -37,6 +37,16 @@ Client& Client::operator=(const Client& other) {
 
 int Client::getPin() const {
     return pin_;
+}
+
+Account Client::getAccount(const std::string& accountName) const {
+    for (int i = 0; i < accounts_.size(); ++i) {
+        if (accounts_[i].getName() == accountName) {
+            return accounts_[i];
+        }
+    }
+
+    return Account();
 }
 
 std::vector<Account> Client::getAccounts() const {
