@@ -14,7 +14,9 @@ Database::Database(const Database& other) {
     db_ = other.db_;
 }
 
-Database::~Database() {}
+Database::~Database() {
+    save();
+}
 
 Database& Database::operator=(const Database& other) {
     db_ = other.db_;
@@ -95,8 +97,12 @@ void Database::save() {
             file << accounts[i].getName() << " "
                  << accounts[i].getBalance() << " "
                  << accounts[i].getAccountNumber() << " " 
-                 << accounts[i].getRoutingNumber() << '\n';
+                 << accounts[i].getRoutingNumber();
+            if (i != accounts.size()-1) {
+                file << " ";
+            }
         }
+        file << '\n';
     }
 
     file.close();
@@ -107,28 +113,26 @@ void Database::load(const std::string& fileName) {
     std::ifstream file(fileName, std::ifstream::in);
 
     if (!file) {
-        std::ofstream file(fileName, std::ofstream::out);
+        std::cout << "Error. File does not exist or cannot be read." << '\n';
+        return;
     }
 
-    // Skip the actual loading aspect if the file was just created.
-    if (file.peek() != file.eof()) {
-        while (!file.eof()) {
-            std::string firstName, lastName, email, password, accountName = "";
-            int pin, balance, accountNumber, routingNumber = 0;
-            std::vector<Account> accounts;
+    while (!file.eof()) {
+        std::string firstName, lastName, email, password, accountName = "";
+        int pin, balance, accountNumber, routingNumber = 0;
+        std::vector<Account> accounts;
 
-            file >> firstName >> lastName >> email >> password >> pin;
-            
-            while ((file.peek() != '\n') && (file >> accountName)) {
-                file >> balance >> accountNumber >> routingNumber;
+        file >> firstName >> lastName >> email >> password >> pin;
+        
+        while ((file.peek() != '\n') && (file >> accountName)) {
+            file >> balance >> accountNumber >> routingNumber;
 
-                Account tempAccount(accountName, balance, accountNumber, routingNumber);
-                accounts.push_back(tempAccount);
-            }
-
-            Client tempClient(firstName, lastName, email, password, pin, accounts);
-            db_.insert({email, tempClient});
+            Account tempAccount(accountName, balance, accountNumber, routingNumber);
+            accounts.push_back(tempAccount);
         }
+
+        Client tempClient(firstName, lastName, email, password, pin, accounts);
+        db_.insert({email, tempClient});
     }
 
     file.close();
