@@ -1,8 +1,21 @@
 #include "account.h"
 
+#define DEFAULT "CHECKING"
 #define EMPTY 0
 
-Account::Account() : name_("NULL"), balance_(EMPTY), accountNumber_(EMPTY), routingNumber_(EMPTY) {}
+Account::Account() : name_(DEFAULT), balance_(EMPTY) {
+    std::srand((unsigned) time(NULL));
+
+    accountNumber_ = 1 + (std::rand() % 1000000);
+    routingNumber_ = 1 + (std::rand()% 1000000);
+}
+
+Account::Account(const std::string& name) : name_(name), balance_(EMPTY) {
+    std::srand((unsigned) time(NULL));
+
+    accountNumber_ = 1 + (std::rand() % 1000000);
+    routingNumber_ = 1 + (std::rand()% 1000000);
+}
 
 Account::Account(const std::string& name, const int& balance, const int& accountNumber, const int& routingNumber)
 : name_(name), balance_(balance), accountNumber_(accountNumber), routingNumber_(routingNumber) {}
