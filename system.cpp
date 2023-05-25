@@ -1,6 +1,6 @@
 #include "system.h"
 
-System::System() {} //null user, false sign in, an empty database (or not)
+System::System() {}
 
 System::System(const System& other)
 : token_(other.token_), database_(other.database_) {}
@@ -13,7 +13,7 @@ System& System::operator=(const System& other) {
     return *this;
 }
 
-Authentication System::getToken() const{
+Authentication System::getToken() const {
     return token_;
 }
 
@@ -62,7 +62,15 @@ void System::removeCustomer(const Client& client) {
 }
 
 void System::updateCustomer(const Client& oldClient, const Client& newClient) {
-    //
+    if (!token_.isSignedIn()) {
+        return;
+    }
+
+    std::unordered_map<std::string, Client>::iterator it = database_.find(oldClient);
+
+    if (it != database_.getDatabase().end()) {
+        it->second.updateUser(newClient);
+    }
 }
 
 void System::addAccount(const Client& client, const Account& account) {
@@ -82,37 +90,60 @@ void System::closeAccount(const Client& client, const std::string& accountName) 
 }
 
 void System::updateCustomerAccount(const Client& client, const Account& oldAccount, const Account& newAccount) {
-    //
+    if (!database_.contains(client.getEmail())) {
+        std::cout << "Error. \'" << client.getFullName() << "\' does not exist in the database." << '\n';
+        return;
+    }
+
+    std::unordered_map<std::string, Client>::iterator it = database_.find(client);
+
+    if (it != database_.getDatabase().end()) {
+        it->second.updateAccount(oldAccount, newAccount);
+    }
 }
 
 void System::deposit(const int& pin, const std::string& accountName, const int& amount) {
-    if (!authorize(pin)) {
+    if (!database_.contains(token_.getCurrentUser().getEmail())) {
+        std::cout << "Error. \'" << token_.getCurrentUser().getFullName() << "\' does not exist in the database." << '\n';
         return;
     }
 
     if (!token_.getCurrentUser().contains(accountName)) {
-        std::cout << "Error. Account: '\''" << accountName << "'\'' does not exist." << '\n';
         return;
     }
 
-    int new_balance = token_.getCurrentUser().getAccountBalance(accountName) + amount;
-    token_.getCurrentUser().updateAccountBalance(accountName, new_balance);
+    std::unordered_map<std::string, Client>::iterator it = database_.find(token_.getCurrentUser());
+
+    if (it != database_.getDatabase().end()) {
+        int newBalance = it->second.getAccountBalance(accountName) + amount;
+        it->second.updateAccountBalance(accountName, newBalance);
+        std::cout << "Success. Deposited $" << amount << '\n';
+        std::cout << "New Balance: $" << it->second.getAccountBalance(accountName) << '\n';
+    }
 }
 
 void System::withdrawl(const int& pin, const std::string& accountName, const int& amount) {
-    if (!authorize(pin)) {
+    if (!database_.contains(token_.getCurrentUser().getEmail())) {
+        std::cout << "Error. \'" << token_.getCurrentUser().getFullName() << "\' does not exist in the database." << '\n';
         return;
     }
 
     if (!token_.getCurrentUser().contains(accountName)) {
-        std::cout << "Error. Account: '\''" << accountName << "'\'' does not exist." << '\n';
         return;
     }
 
-    int new_balance = token_.getCurrentUser().getAccountBalance(accountName) - amount;
+    std::unordered_map<std::string, Client>::iterator it = database_.find(token_.getCurrentUser());
 
-    if (new_balance >= 0) {
-        token_.getCurrentUser().updateAccountBalance(accountName, new_balance);
+    if (it != database_.getDatabase().end()) {
+        int newBalance = it->second.getAccountBalance(accountName) - amount;
+
+        if (newBalance >= 0) {
+            it->second.updateAccountBalance(accountName, newBalance);
+            std::cout << "Success. Received $" << amount << '\n';
+            std::cout << "New Balance: $" << it->second.getAccountBalance(accountName) << '\n';
+            return;
+        }
+
+        std::cout << "Error. Trying to withdrawl more than what is available." << '\n';
     }
-    
 }
