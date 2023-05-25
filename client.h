@@ -20,6 +20,7 @@ class Client : public User {
         ~Client();
         Client& operator=(const Client& other);
         int getPin() const;
+        Account getAccount(const std::string& accountName) const;
         std::vector<Account> getAccounts() const;
         int getAccountBalance(const std::string& accountName) const;
         bool contains(const std::string& accountName) const;
