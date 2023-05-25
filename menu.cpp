@@ -16,6 +16,7 @@ Menu::Menu() {
 
         std::cout << "Continue? (Enter any key to continue. \'q\' to exit)" << '\n';
         std::cin >> exit_;
+        std::cin.ignore();
     }
 
     displayFarewell();
