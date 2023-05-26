@@ -1,0 +1,8 @@
+Joe Shmoe jshmoe@email.com pass123 9999 Checking 289 239889 239783 Saving 8000 129282 846782
+John Doe doejohn@email.com 123pass 8880 Saving 9 738296 332451 College 90000 922839 758990
+Jane Doo jdoo@email.com password 2221 Checking 300 172839 473834
+Foo Bar fb@email.com cats1 77773 Business 100000 748292 464738
+Bar Foo bf@email.com dog3 8822 Work 4930 960381 883902 Business 8000 918837 746277
+Billy Bob bobb@email.com passwoord 1111 Checking 91 929189 367286
+Steve Stevens steve12@email.com blue2 2828 College 98 829187 736456
+Steven Stevenson stevensons@email.com wordpass 8811 Saving 812 918128 378490
