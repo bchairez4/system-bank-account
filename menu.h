@@ -15,8 +15,8 @@ class Menu {
         void displayFarewell() const;
         void displayStartMenu() const;
         void displayFullMenu() const;
-        void start();
-        void full();
+        char start();
+        char full();
         void signIn();
         void signUp();
         void signOut();
