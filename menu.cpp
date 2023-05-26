@@ -8,15 +8,11 @@ Menu::Menu() {
     while (exit_ != 'q') {
         if (sys_.getToken().isSignedIn()) {
             displayFullMenu();
-            full();
+            exit_ = full();
         } else {
             displayStartMenu();
-            start();
+            exit_ = start();
         }
-
-        std::cout << "Continue? (Enter any key to continue. \'q\' to exit)" << '\n';
-        std::cin >> exit_;
-        std::cin.ignore();
     }
 
     displayFarewell();
@@ -69,7 +65,7 @@ void Menu::displayFullMenu() const {
 }
 
 // First System loop
-void Menu::start() {
+char Menu::start() {
     char input = '_';
     std::cin >> input;
     std::cin.ignore();
@@ -84,15 +80,18 @@ void Menu::start() {
         break;
     case '3':
         quit();
+        return 'q';
         break;
     default:
         std::cout << " Please enter a number corresponding to a valid option." << '\n';
         break;
     }
+
+    return ' ';
 }
 
 // Main System Loop
-void Menu::full() {
+char Menu::full() {
     char input = '_';
     std::cin >> input;
     std::cin.ignore();
@@ -122,11 +121,14 @@ void Menu::full() {
         break;
     case '8':
         quit();
+        return 'q';
         break;
     default:
         std::cout << " Please enter a number corresponding to a valid option." << '\n';
         break;
     }
+
+    return ' ';
 }
 
 void Menu::signIn() {
