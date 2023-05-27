@@ -133,6 +133,7 @@ void Database::load(const std::string& fileName) {
 
         Client tempClient(firstName, lastName, email, password, pin, accounts);
         db_.insert({email, tempClient});
+        file >> std::ws;
     }
 
     file.close();
