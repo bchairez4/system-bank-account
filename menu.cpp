@@ -56,12 +56,13 @@ void Menu::displayFullMenu() const {
     std::cout << "--------------------------------------------------------------------" << '\n';
     std::cout << "1) Deposit" << '\n';
     std::cout << "2) Withdrawl" << '\n';
-    std::cout << "3) Open Account" << '\n';
-    std::cout << "4) Close Account" << '\n';
-    std::cout << "5) Update Account" << '\n';
-    std::cout << "6) Edit User Profile" << '\n';
-    std::cout << "7) Sign out" << '\n';
-    std::cout << "8) Quit" << '\n';
+    std::cout << "3) Display Accounts" << '\n';
+    std::cout << "4) Open Account" << '\n';
+    std::cout << "5) Close Account" << '\n';
+    std::cout << "6) Update Account" << '\n';
+    std::cout << "7) Edit User Profile" << '\n';
+    std::cout << "8) Sign out" << '\n';
+    std::cout << "9) Quit" << '\n';
     std::cout << '\n';
 }
 
@@ -106,21 +107,24 @@ char Menu::full() {
         withdrawl();
         break;
     case '3':
-        openAccount();
+        displayAccounts();
         break;
     case '4':
-        closeAccount();
+        openAccount();
         break;
     case '5':
-        updateAccount();
+        closeAccount();
         break;
     case '6':
-        editUserProfile();
+        updateAccount();
         break;
     case '7':
-        signOut();
+        editUserProfile();
         break;
     case '8':
+        signOut();
+        break;
+    case '9':
         quit();
         return 'q';
         break;
@@ -283,6 +287,13 @@ void Menu::withdrawl() {
     std::cout << '\n'; 
 
     sys_.withdrawl(pin, accountName, amount);
+}
+
+void Menu::displayAccounts() const {
+    std::cout << "Display Accounts:" << '\n';
+    std::cout << "--------------------------------------------------------------------" << '\n';
+
+    sys_.displayUserInfo();
 }
 
 void Menu::openAccount() {
