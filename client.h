@@ -15,6 +15,7 @@ class Client : public User {
     public:
         Client();
         Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin);
+        Client(const std::string& firstName, const std::string& lastName, const std::string& emial, const std::string& password, const int& pin, const std::string& accountName);
         Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin, const std::vector<Account>& accounts);
         Client(const Client& other);
         ~Client();
