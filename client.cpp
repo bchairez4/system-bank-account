@@ -70,7 +70,6 @@ bool Client::contains(const std::string& accountName) const {
         }
     }
 
-    std::cout << "Error. \'" << accountName << "\' does not exist as an account." << '\n';
     return false;
 }
 
