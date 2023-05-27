@@ -3,7 +3,7 @@
 #define ONE 1
 #define PIN_LIMIT 999999
 
-Client::Client() : pin_(-ONE), accounts_(ONE, Account()) {}
+Client::Client() : pin_(-ONE) {}
 
 Client::Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin)
 : User(firstName, lastName, email, password), pin_(pin), accounts_(ONE, Account()) {}
