@@ -244,6 +244,7 @@ void Menu::withdrawl() {
         return;
     }
 
+    std::cout << "Current balance: $" << sys_.getToken().getCurrentUser().getAccountBalance(accountName) << '\n';
     std::cout << "How much would you like to withdrawl? $";
     std::cin >> amount;
     std::cin.ignore();
@@ -307,11 +308,43 @@ void Menu::updateAccount() {
     std::getline(std::cin, newName);
     std::cout << '\n';
 
-    sys_.getDatabase().getClient(sys_.getToken().getCurrentUser().getEmail()).getAccount(oldName).setName(newName);
+    Account oldAccount = sys_.getToken().getCurrentUser().getAccount(oldName);
+    Account newAccount = oldAccount;
+    newAccount.setName(newName);
+
+    sys_.updateCustomerAccount(sys_.getToken().getCurrentUser(), oldAccount, newAccount);
 }
 
 void Menu::editUserProfile() {
-    // to do
+    std::string firstName, lastName, password = "";
+    Client newClient;
+
+    std::cout << "Edit User Profile:" << '\n';
+    std::cout << "--------------------------------------------------------------------" << '\n';
+
+    std::cout << "Enter your new First Name: (Press \'enter\' to skip)" << '\n';
+    std::getline(std::cin, firstName);
+    std::cout << '\n';
+
+    std::cout << "Enter your new Last Name: (Press \'enter\' to skip)";
+    std::getline(std::cin, lastName);
+    std::cout << '\n';
+
+    std::cout << "Enter your new Password: (Press \'enter\' to skip)";
+    std::getline(std::cin, password);
+    std::cout << '\n';
+
+    if (!firstName.empty()) {
+        newClient.setFirstName(firstName);
+    }
+    if (!lastName.empty()) {
+        newClient.setLastName(lastName);
+    }
+    if (!password.empty()) {
+        newClient.setPassword(password);
+    }
+
+    sys_.updateCustomer(sys_.getToken().getCurrentUser(), newClient);
 }
 
 void Menu::quit() {
