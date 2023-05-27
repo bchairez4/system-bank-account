@@ -17,6 +17,7 @@ class System {
         void displayUserInfo() const;
         void displayDatabase() const;
         bool authorize(const int& pin) const;
+        bool contains(const std::string& email) const;
         void signIn(const std::string& email, const std::string& password);
         void signOut();
         void addCustomer(const Client& client);
