@@ -43,6 +43,10 @@ bool System::authorize(const int& pin) const {
     return false;
 }
 
+bool System::contains(const std::string& email) const {
+    return database_.contains(email);
+}
+
 void System::signIn(const std::string& email, const std::string& password) {
     if (!token_.isSignedIn()) {
         token_.signIn(email, password, database_);
