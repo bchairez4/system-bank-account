@@ -36,8 +36,8 @@ void Authentication::signIn(const std::string& email, const std::string& passwor
             return;
         }
     }
-    
-    std::cout << "Invalid email or password." << '\n';
+
+    std::cout << "Error. Invalid email or password." << '\n';
 }
 
 void Authentication::signOut() {
