@@ -1,11 +1,15 @@
 #include "client.h"
 
 #define ONE 1
+#define PIN_LIMIT 999999
 
 Client::Client() : pin_(-ONE), accounts_(ONE, Account()) {}
 
 Client::Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin)
 : User(firstName, lastName, email, password), pin_(pin), accounts_(ONE, Account()) {}
+
+Client::Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin, const std::string& accountName) 
+: User(firstName, lastName, email, password), pin_(pin), accounts_(ONE, Account(accountName)) {}
 
 Client::Client(const std::string& firstName, const std::string& lastName, const std::string& email, const std::string& password, const int& pin, const std::vector<Account>& accounts)
 : User(firstName, lastName, email, password), pin_(pin) {
@@ -109,7 +113,7 @@ void Client::updateUser(const Client& client) {
 }
 
 void Client::updatePin(const int& pin) {
-    if (pin < 0 || pin > 999999) {    //6-digit limit for pin number
+    if (pin < 0 || pin > PIN_LIMIT) {    //6-digit limit for pin number
         std::cout << "Error. Pin Number must be a 4 - 6 digit number." << '\n';
         return;
     }
