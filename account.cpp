@@ -1,6 +1,6 @@
 #include "account.h"
 
-#define DEFAULT "CHECKING"
+#define DEFAULT "Checking"
 #define EMPTY 0
 
 Account::Account() : name_(DEFAULT), balance_(EMPTY) {
