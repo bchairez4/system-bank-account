@@ -209,6 +209,7 @@ void Menu::deposit() {
     std::cout << '\n';
 
     if (!sys_.getToken().getCurrentUser().contains(accountName)) {
+        std::cout << "Error. \'" << accountName << "\' does not exist as an account." << '\n';
         return;
     }
 
@@ -241,6 +242,7 @@ void Menu::withdrawl() {
     std::cout << '\n';
 
     if (!sys_.getToken().getCurrentUser().contains(accountName)) {
+        std::cout << "Error. \'" << accountName << "\' does not exist as an account." << '\n';
         return;
     }
 
@@ -263,14 +265,11 @@ void Menu::openAccount() {
     std::getline(std::cin, name);
     std::cout << '\n';
 
-    if (sys_.getToken().getCurrentUser().contains(name)) {
-        std::cout << name << " already exists as an account." << '\n';
-        return;
-    }
-
     Account newAccount(name);
 
     sys_.addAccount(sys_.getToken().getCurrentUser(), newAccount);
+
+    std::cout << "Success! Added \'" << name << "\' to your accounts." << '\n'; 
 }
 
 void Menu::closeAccount() {
@@ -283,11 +282,9 @@ void Menu::closeAccount() {
     std::getline(std::cin, name);
     std::cout << '\n';
 
-    if (!sys_.getToken().getCurrentUser().contains(name)) {
-        return;
-    }
-
     sys_.closeAccount(sys_.getToken().getCurrentUser(), name);
+
+    std::cout << "Success! Removed \'" << name << "\' from your accounts." << '\n'; 
 }
 
 void Menu::updateAccount() {
@@ -301,6 +298,7 @@ void Menu::updateAccount() {
     std::cout << '\n';
 
     if (!sys_.getToken().getCurrentUser().contains(oldName)) {
+        std::cout << "Error. \'" << oldName << "\' does not exist as an account." << '\n';
         return;
     }
 
