@@ -1,5 +1,7 @@
 #include "menu.h"
 
+#define INPUT_IGNORE 100
+
 Menu::Menu() {
     displayWelcome();
 
@@ -31,7 +33,6 @@ void Menu::displayWelcome() const {
     std::cout << "--------------------------------------------------------------------" << '\n';
     std::cout << "Welcome to Cherries Bank System." << '\n';
     std::cout << "--------------------------------------------------------------------" << '\n';
-    std::cout << '\n';
     std::cout << "Please type in the requested command number followed by pressing \'enter\'." << '\n';
     std::cout << '\n';
 }
@@ -67,8 +68,8 @@ void Menu::displayFullMenu() const {
 // First System loop
 char Menu::start() {
     char input = '_';
-    std::cin >> input;
-    std::cin.ignore();
+    std::cin.get(input);
+    std::cin.ignore(INPUT_IGNORE, '\n');
     std::cout << '\n';
 
     switch (input) {
@@ -93,8 +94,8 @@ char Menu::start() {
 // Main System Loop
 char Menu::full() {
     char input = '_';
-    std::cin >> input;
-    std::cin.ignore();
+    std::cin.get(input);
+    std::cin.ignore(INPUT_IGNORE, '\n');
     std::cout << '\n';
 
     switch (input) {
@@ -167,9 +168,28 @@ void Menu::signUp() {
     std::getline(std::cin, lastName);
     std::cout << '\n';
 
-    std::cout << "Please enter your email: ";   //future: check to see if email is already taken before proceeding
+    std::cout << "Please enter your email: ";
     std::getline(std::cin, email);
     std::cout << '\n';
+
+    if (sys_.contains(email)) {
+        char response = ' ';
+        std::cout << "Error. Account is associated with an account. Sign in? [y or n]: ";
+        std::cin >> response;
+        std::cin.ignore(INPUT_IGNORE, '\n');
+        std::cout << '\n';
+
+        if (response == 'y') {
+            signIn();
+            return;
+        }
+
+        while (sys_.contains(email)) {
+            std::cout << "Please enter a vaild email: ";
+            std::getline(std::cin, email);
+            std::cout << '\n';
+        }
+    }
 
     std::cout << "Please enter a password: ";
     std::getline(std::cin, password);
@@ -179,6 +199,16 @@ void Menu::signUp() {
     std::cin >> pin;
     std::cin.ignore();
     std::cout << '\n';
+
+    if (pin < 0 || pin > PIN_LIMIT) {
+        while (pin < 0 || pin > PIN_LIMIT) {
+            std::cout << "Error. Pin number must be 4 - 6 digits long." << '\n';
+            std::cout << "Please enter a pin number [4 - 6 digits]: ";
+            std::cin >> pin;
+            std::cin.ignore();
+            std::cout << '\n';
+        }
+    }
 
     Client newClient(firstName, lastName, email, password, pin);
     sys_.addCustomer(newClient);
