@@ -22,6 +22,7 @@ class Menu {
         void signOut();
         void deposit();
         void withdrawl();
+        void displayAccounts() const;
         void openAccount();
         void closeAccount();
         void updateAccount();
