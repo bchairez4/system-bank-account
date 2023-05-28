@@ -9,8 +9,13 @@ Menu::Menu() {
     
     while (exit_ != 'q') {
         if (sys_.getToken().isSignedIn()) {
-            displayFullMenu();
-            exit_ = full();
+            if (sys_.getToken().isAdmin()) {
+                displayAdminMenu();
+                exit_ = admin();
+            } else {
+                displayFullMenu();
+                exit_ = full();
+            }
         } else {
             displayStartMenu();
             exit_ = start();
@@ -51,6 +56,17 @@ void Menu::displayStartMenu() const {
     std::cout << '\n';
 }
 
+void Menu::displayAdminMenu() const {
+    std::cout << "Main Menu" << '\n';
+    std::cout << "--------------------------------------------------------------------" << '\n';
+    std::cout << "1) Display Database" << '\n';
+    std::cout << "2) Add User" << '\n'; 
+    std::cout << "3) Remove User" << '\n';
+    std::cout << "4) Sign Out" << '\n'; 
+    std::cout << "5) Quit" << '\n';
+    std::cout << '\n';
+}
+
 void Menu::displayFullMenu() const {
     std::cout << "Main Menu" << '\n';
     std::cout << "--------------------------------------------------------------------" << '\n';
@@ -68,69 +84,100 @@ void Menu::displayFullMenu() const {
 
 // First System loop
 char Menu::start() {
-    char input = '_';
+    char input = ' ';
     std::cin.get(input);
     std::cin.ignore(INPUT_IGNORE, '\n');
     std::cout << '\n';
 
     switch (input) {
-    case '1':
-        signIn();
-        break;
-    case '2':
-        signUp();
-        break;
-    case '3':
-        quit();
-        return 'q';
-        break;
-    default:
-        std::cout << " Please enter a number corresponding to a valid option." << '\n';
-        break;
+        case '1':
+            signIn();
+            break;
+        case '2':
+            signUp();
+            break;
+        case '3':
+            quit();
+            return 'q';
+            break;
+        default:
+            std::cout << " Please enter a number corresponding to a valid option." << '\n';
+            break;
     }
 
     return ' ';
 }
 
-// Main System Loop
+// Admin System loop
+char Menu::admin() {
+    char input = ' ';
+    std::cin.get(input);
+    std::cin.ignore(INPUT_IGNORE, '\n');
+    std::cout << '\n';
+
+    switch(input) {
+        case '1':
+            displayDatabase();
+            break;
+        case '2':
+            addCustomer();
+            break;
+        case '3':
+            removeCustomer();
+            break;
+        case '4':
+            signOut();
+            break;
+        case '5':
+            return 'q';
+            break;
+        default:
+            std::cout << " Please enter a number corresponding to a valid option." << '\n';
+            break;
+    }
+
+    return ' ';
+}
+
+// Main System loop
 char Menu::full() {
-    char input = '_';
+    char input = ' ';
     std::cin.get(input);
     std::cin.ignore(INPUT_IGNORE, '\n');
     std::cout << '\n';
 
     switch (input) {
-    case '1':
-        deposit();
-        break;
-    case '2':
-        withdrawl();
-        break;
-    case '3':
-        displayAccounts();
-        break;
-    case '4':
-        openAccount();
-        break;
-    case '5':
-        closeAccount();
-        break;
-    case '6':
-        updateAccount();
-        break;
-    case '7':
-        editUserProfile();
-        break;
-    case '8':
-        signOut();
-        break;
-    case '9':
-        quit();
-        return 'q';
-        break;
-    default:
-        std::cout << " Please enter a number corresponding to a valid option." << '\n';
-        break;
+        case '1':
+            deposit();
+            break;
+        case '2':
+            withdrawl();
+            break;
+        case '3':
+            displayAccounts();
+            break;
+        case '4':
+            openAccount();
+            break;
+        case '5':
+            closeAccount();
+            break;
+        case '6':
+            updateAccount();
+            break;
+        case '7':
+            editUserProfile();
+            break;
+        case '8':
+            signOut();
+            break;
+        case '9':
+            quit();
+            return 'q';
+            break;
+        default:
+            std::cout << " Please enter a number corresponding to a valid option." << '\n';
+            break;
     }
 
     return ' ';
@@ -153,6 +200,11 @@ void Menu::signIn() {
     sys_.signIn(email, password);
 
     if (sys_.getToken().isSignedIn()) {
+        if (sys_.getToken().isAdmin()) {
+            std::cout << "Welcome Admin." << '\n';
+            return;
+        }
+
         std::cout << "Welcome back " << sys_.getToken().getCurrentUser().getFullName() << "!" <<  '\n';
     }
 }
@@ -220,6 +272,119 @@ void Menu::signUp() {
 
 void Menu::signOut() {
     sys_.signOut();
+}
+
+void Menu::displayDatabase() const {
+    std::cout << "Display Database:" << '\n';
+    std::cout << "--------------------------------------------------------------------" << '\n';
+
+    sys_.displayDatabase();
+    std::cout << '\n';
+}
+
+void Menu::addCustomer() {
+    std::string firstName, lastName, email, password, accountName = "";
+    int pin, balance, numAccounts = 0;
+
+    std::cout << "Add Customer:" << '\n';
+    std::cout << "--------------------------------------------------------------------" << '\n';
+
+    std::cout << "Please enter the customer's first name: ";
+    std::getline(std::cin, firstName);
+    std::cout << '\n';
+
+    std::cout << "Please enter the customer's last name: ";
+    std::getline(std::cin, lastName);
+    std::cout << '\n';
+
+    std::cout << "Please enter the customer's email: ";
+    std::getline(std::cin, email);
+    std::cout << '\n';
+
+    if (sys_.contains(email)) {
+        char response = ' ';
+        std::cout << "Error. Account is associated with an account. Exit Add Customer? [y or n]: ";
+        std::cin >> response;
+        std::cin.ignore(INPUT_IGNORE, '\n');
+        std::cout << '\n';
+
+        if (response == 'y') {
+            return;
+        }
+
+        while (sys_.contains(email)) {
+            std::cout << "Please enter a different email: ";
+            std::getline(std::cin, email);
+            std::cout << '\n';
+        }
+    }
+
+    std::cout << "Please enter the customer's password: ";
+    std::getline(std::cin, password);
+    std::cout << '\n';
+
+    std::cout << "Please enter the customer's pin number [4 - 6 digits]: ";
+    std::cin >> pin;
+    std::cin.ignore();
+    std::cout << '\n';
+
+    if (pin < 0 || pin > PIN_LIMIT) {
+        while (pin < 0 || pin > PIN_LIMIT) {
+            std::cout << "Error. Pin number must be 4 - 6 digits long." << '\n';
+            std::cout << "Please enter a pin number [4 - 6 digits]: ";
+            std::cin >> pin;
+            std::cin.ignore();
+            std::cout << '\n';
+        }
+    }
+
+    std::vector<Account> accounts;
+    std::cout << "How many accounts is the customer opening?: ";
+    std::cin >> numAccounts;
+    std::cin.ignore();
+    std::cout << '\n';
+
+    for (int i = 0; i < numAccounts; ++i) {
+        std::cout << "Enter the name for account #" << i+1 << ": ";
+        std::getline(std::cin, accountName);
+        std::cout << '\n';
+
+        std::cout << "Initial deposit? $";
+        std::cin >> balance;
+        std::cin.ignore();
+        std::cout << '\n';
+
+        Account tempAccount(accountName, balance);
+        accounts.push_back(tempAccount);
+    }
+
+    Client newClient(firstName, lastName, email, password, pin, accounts);
+
+    sys_.addCustomer(newClient);
+
+    std::cout << "Successfully added " << firstName << "." << '\n';
+}
+
+void Menu::removeCustomer() {
+    std::string email = "";
+
+    std::cout << "Remove Customer:" << '\n';
+    std::cout << "--------------------------------------------------------------------" << '\n';
+
+    std::cout << "Please enter the email of the customer you wish to erase from the system: ";
+    std::getline(std::cin, email);
+    std::cout << '\n';
+
+    if (!sys_.contains(email)) {
+        std::cout << "Error. \'" << email << "\' does not exist as a customer in the database." << '\n';
+        return;
+    }
+
+    Client tempClient("NULL", "NULL", email, "NULL", 0);
+
+    sys_.removeCustomer(tempClient);
+
+    std::cout << "Successfully removed " << email << "." << '\n';
 }
 
 void Menu::deposit() {
@@ -352,6 +517,8 @@ void Menu::updateAccount() {
     newAccount.setName(newName);
 
     sys_.updateCustomerAccount(sys_.getToken().getCurrentUser(), oldAccount, newAccount);
+
+    std::cout << "Successfully updated " << newName << "." << '\n';
 }
 
 void Menu::editUserProfile() {
@@ -384,6 +551,8 @@ void Menu::editUserProfile() {
     }
 
     sys_.updateCustomer(sys_.getToken().getCurrentUser(), newClient);
+
+    std::cout << "Successfully updated " << firstName << "." << '\n';
 }
 
 void Menu::quit() {
@@ -391,3 +560,4 @@ void Menu::quit() {
         signOut();
     }
 }
+
