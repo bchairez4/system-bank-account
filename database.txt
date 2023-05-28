@@ -1,3 +1,4 @@
+admin admin admin admin 0 NULL 0 0 0
 Joe Shmoe jshmoe@email.com pass123 9999 Checking 289 239889 239783 Saving 8000 129282 846782
 John Doe doejohn@email.com 123pass 8880 Saving 9 738296 332451 College 90000 922839 758990
 Jane Doo jdoo@email.com password 2221 Checking 300 172839 473834
