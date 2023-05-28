@@ -17,6 +17,13 @@ Account::Account(const std::string& name) : name_(name), balance_(EMPTY) {
     routingNumber_ = 1 + (std::rand()% 1000000);
 }
 
+Account::Account(const std::string& name, const int& balance) : name_(name), balance_(balance) {
+    std::srand((unsigned) time(NULL));
+
+    accountNumber_ = 1 + (std::rand() % 1000000);
+    routingNumber_ = 1 + (std::rand()% 1000000);
+}
+
 Account::Account(const std::string& name, const int& balance, const int& accountNumber, const int& routingNumber)
 : name_(name), balance_(balance), accountNumber_(accountNumber), routingNumber_(routingNumber) {}
 
