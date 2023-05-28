@@ -13,6 +13,7 @@ class Account {
     public:
         Account();
         Account(const std::string& name);
+        Account(const std::string& name, const int& balance);
         Account(const std::string& name, const int& balance, const int& accountNumber, const int& routingNumber);
         Account(const Account& other);
         ~Account();
