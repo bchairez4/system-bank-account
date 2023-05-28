@@ -14,12 +14,17 @@ class Menu {
         void displayWelcome() const;
         void displayFarewell() const;
         void displayStartMenu() const;
+        void displayAdminMenu() const;
         void displayFullMenu() const;
         char start();
+        char admin();
         char full();
         void signIn();
         void signUp();
         void signOut();
+        void displayDatabase() const;
+        void addCustomer();
+        void removeCustomer();
         void deposit();
         void withdrawl();
         void displayAccounts() const;
