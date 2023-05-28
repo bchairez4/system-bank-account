@@ -14,6 +14,7 @@ class Authentication {
         ~Authentication();
         Authentication& operator=(const Authentication& other);
         Client getCurrentUser() const;
+        bool isAdmin() const;
         bool isSignedIn() const;
         void signIn(const std::string& email, const std::string& password, const Database& database);
         void signOut();
