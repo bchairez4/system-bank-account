@@ -24,6 +24,10 @@ Client Authentication::getCurrentUser() const {
     return currentUser_;
 }
 
+bool Authentication::isAdmin() const {
+    return (signedIn_ && (currentUser_.getFirstName() == "admin"));
+}
+
 bool Authentication::isSignedIn() const {
     return signedIn_;
 }
