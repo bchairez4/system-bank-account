@@ -523,22 +523,38 @@ void Menu::updateAccount() {
 
 void Menu::editUserProfile() {
     std::string firstName, lastName, password = "";
+    int pin = -1;
     Client newClient;
 
     std::cout << "Edit User Profile:" << '\n';
     std::cout << "--------------------------------------------------------------------" << '\n';
 
-    std::cout << "Enter your new First Name: (Press \'enter\' to skip)" << '\n';
+    std::cout << "Enter your new First Name (Press \'enter\' to skip): ";
     std::getline(std::cin, firstName);
     std::cout << '\n';
 
-    std::cout << "Enter your new Last Name: (Press \'enter\' to skip)";
+    std::cout << "Enter your new Last Name (Press \'enter\' to skip): ";
     std::getline(std::cin, lastName);
     std::cout << '\n';
 
-    std::cout << "Enter your new Password: (Press \'enter\' to skip)";
+    std::cout << "Enter your new Password (Press \'enter\' to skip): ";
     std::getline(std::cin, password);
     std::cout << '\n';
+
+    std::cout << "Enter your new Pin Number (Enter \'-1\' to skip): ";
+    std::cin >> pin;
+    std::cin.ignore();
+    std::cout << '\n';
+
+    if (pin > PIN_LIMIT) {
+        while (pin > PIN_LIMIT) {
+            std::cout << "Error. Pin number must be 4 - 6 digits long." << '\n';
+            std::cout << "Please enter a pin number [4 - 6 digits]: (Enter \'-1\' to skip): ";
+            std::cin >> pin;
+            std::cin.ignore();
+            std::cout << '\n';
+        }
+    }
 
     if (!firstName.empty()) {
         newClient.setFirstName(firstName);
@@ -549,10 +565,13 @@ void Menu::editUserProfile() {
     if (!password.empty()) {
         newClient.setPassword(password);
     }
+    if (pin != -1) {
+        newClient.updatePin(pin);
+    }
 
     sys_.updateCustomer(sys_.getToken().getCurrentUser(), newClient);
 
-    std::cout << "Successfully updated " << firstName << "." << '\n';
+    std::cout << "Successfully updated account." << '\n';
 }
 
 void Menu::quit() {
