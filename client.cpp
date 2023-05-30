@@ -33,6 +33,7 @@ Client& Client::operator=(const Client& other) {
     setEmail(other.getEmail());
     setPassword(other.getPassword());
     pin_ = other.pin_;
+    accounts_.clear();
     for (int i = 0; i < other.accounts_.size(); ++i) {
         accounts_.push_back(other.accounts_[i]);
     }
