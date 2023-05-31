@@ -106,6 +106,10 @@ void System::updateCustomerAccount(const Client& client, const Account& oldAccou
     }
 }
 
+int System::getCustomerAccountBalance(const Client& client, const std::string& accountName) const {
+    return database_.getClient(client.getEmail()).getAccountBalance(accountName);
+}
+
 void System::deposit(const int& pin, const std::string& accountName, const int& amount) {
     if (!database_.contains(token_.getCurrentUser().getEmail())) {
         std::cout << "Error. \'" << token_.getCurrentUser().getFullName() << "\' does not exist in the database." << '\n';
