@@ -23,8 +23,8 @@ Database System::getDatabase() const {
 
 void System::displayUserInfo() const {
     if (token_.isSignedIn()) {
-        token_.getCurrentUser().displayUser();
-        token_.getCurrentUser().displayAccounts();
+        database_.getClient(token_.getCurrentUser().getEmail()).displayUser();
+        database_.getClient(token_.getCurrentUser().getEmail()).displayAccounts();
     }
 }
 
