@@ -26,6 +26,7 @@ class System {
         void addAccount(const Client& client, const Account& account);
         void closeAccount(const Client& client, const std::string& accountName);
         void updateCustomerAccount(const Client& client, const Account& oldAccount, const Account& newAccount);
+        int getCustomerAccountBalance(const Client& client, const std::string& accountName) const;
         void deposit(const int& pin, const std::string& accountName, const int& amount);
         void withdrawl(const int& pin, const std::string& accountName, const int& amount);
 };
