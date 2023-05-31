@@ -47,6 +47,10 @@ bool System::contains(const std::string& email) const {
     return database_.contains(email);
 }
 
+bool System::containsCustomerAccount(const Client& client, const std::string& accountName) const {
+    return database_.getClient(client.getEmail()).contains(accountName);
+}
+
 void System::signIn(const std::string& email, const std::string& password) {
     if (!token_.isSignedIn()) {
         token_.signIn(email, password, database_);
@@ -94,11 +98,6 @@ void System::closeAccount(const Client& client, const std::string& accountName) 
 }
 
 void System::updateCustomerAccount(const Client& client, const Account& oldAccount, const Account& newAccount) {
-    if (!database_.contains(client.getEmail())) {
-        std::cout << "Error. \'" << client.getFullName() << "\' does not exist in the database." << '\n';
-        return;
-    }
-
     std::unordered_map<std::string, Client>::iterator it = database_.find(client);
 
     if (it != database_.getDatabase().end()) {
@@ -111,12 +110,7 @@ int System::getCustomerAccountBalance(const Client& client, const std::string& a
 }
 
 void System::deposit(const int& pin, const std::string& accountName, const int& amount) {
-    if (!database_.contains(token_.getCurrentUser().getEmail())) {
-        std::cout << "Error. \'" << token_.getCurrentUser().getFullName() << "\' does not exist in the database." << '\n';
-        return;
-    }
-
-    if (!token_.getCurrentUser().contains(accountName)) {
+if (!token_.getCurrentUser().contains(accountName)) {
         return;
     }
 
@@ -131,12 +125,7 @@ void System::deposit(const int& pin, const std::string& accountName, const int& 
 }
 
 void System::withdrawl(const int& pin, const std::string& accountName, const int& amount) {
-    if (!database_.contains(token_.getCurrentUser().getEmail())) {
-        std::cout << "Error. \'" << token_.getCurrentUser().getFullName() << "\' does not exist in the database." << '\n';
-        return;
-    }
-
-    if (!token_.getCurrentUser().contains(accountName)) {
+if (!token_.getCurrentUser().contains(accountName)) {
         return;
     }
 
