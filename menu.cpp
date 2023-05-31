@@ -445,7 +445,7 @@ void Menu::withdrawl() {
         return;
     }
 
-    std::cout << "Current balance: $" << sys_.getToken().getCurrentUser().getAccountBalance(accountName) << '\n';
+    std::cout << "Current balance: $" << sys_.getCustomerAccountBalance(sys_.getToken().getCurrentUser(), accountName) << '\n';
     std::cout << "How much would you like to withdrawl? $";
     std::cin >> amount;
     std::cin.ignore();
