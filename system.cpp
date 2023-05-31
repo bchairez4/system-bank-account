@@ -21,6 +21,10 @@ Database System::getDatabase() const {
     return database_;
 }
 
+Account System::getCustomerAccount(const Client& client, const std::string& accountName) const {
+    return database_.getClient(client.getEmail()).getAccount(accountName);
+}
+
 void System::displayUserInfo() const {
     if (token_.isSignedIn()) {
         database_.getClient(token_.getCurrentUser().getEmail()).displayUser();
@@ -110,7 +114,7 @@ int System::getCustomerAccountBalance(const Client& client, const std::string& a
 }
 
 void System::deposit(const int& pin, const std::string& accountName, const int& amount) {
-if (!token_.getCurrentUser().contains(accountName)) {
+    if (!database_.getClient(token_.getCurrentUser().getEmail()).contains(accountName)) {
         return;
     }
 
@@ -125,7 +129,7 @@ if (!token_.getCurrentUser().contains(accountName)) {
 }
 
 void System::withdrawl(const int& pin, const std::string& accountName, const int& amount) {
-if (!token_.getCurrentUser().contains(accountName)) {
+    if (!database_.getClient(token_.getCurrentUser().getEmail()).contains(accountName)) {
         return;
     }
 
