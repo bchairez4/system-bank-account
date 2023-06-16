@@ -1,7 +1,5 @@
-/*****************************************************************************
-*    Brian Chairez                                                           *
-*    Goal: Implementing a Bank Account System using a faux database.         *
-*****************************************************************************/
+// Bank Account System
+// Created by Brian Chairez
 
 #include "menu.cpp"
 
