@@ -4,9 +4,9 @@ Created by Brian Chairez
 
 This C++ project implements a bank account system.
 
-The bank account system functions similarly to a traditional bank account system while also acting as an ATM (Automated Teller Machine). The way it works is a User first signs in and is then able to withdrawl or deposit funds from and to their accounts on top of being able to open and close accounts as well as update their profile.
+The bank account system functions similarly to a traditional bank account system while also acting as an ATM (Automated Teller Machine) in which a user signs in to their respective account and is able to manage their profile, accounts, and available funds. 
+The user has the ability to sign up if they do not already exist within the system's database. 
+Signing up will ask for basic user information including an email and password and automatically create an empty checking account. 
+After signing in, the user can edit account names, add/remove accounts, edit their user profile and/ or deposit/withdrawl 'money'. 
 
-Functionality wise, a User must either sign in or sign up before proceeding to the main interface.
-The main interface consists of all the options a User can select in order to manage their account to their discretion.
-An Admin sign in is provided that contains high privilege functionality compared to a normal User.
-Users and Admin are stored in a local faux database as a text file that gets generated and/or updated by driver code when needed.
+An admin sign in is included with elevated privileges giving the admin the ability to directly modify the user database.
