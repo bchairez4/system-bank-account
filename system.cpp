@@ -17,6 +17,10 @@ Authentication System::getToken() const {
     return token_;
 }
 
+Client System::getClient(const std::string& email) const {
+    return database_.getClient(email);
+}
+
 Database System::getDatabase() const {
     return database_;
 }
@@ -53,6 +57,14 @@ bool System::contains(const std::string& email) const {
 
 bool System::containsCustomerAccount(const Client& client, const std::string& accountName) const {
     return database_.getClient(client.getEmail()).contains(accountName);
+}
+
+bool System::isSignedInCustomer() const {
+    return token_.isSignedIn();
+}
+
+bool System::isSignedInAdmin() const {
+    return token_.isAdmin();
 }
 
 void System::signIn(const std::string& email, const std::string& password) {
