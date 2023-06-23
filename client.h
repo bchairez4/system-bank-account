@@ -34,7 +34,7 @@ class Client : public User {
         void updateAccountName(const std::string& accountName, const std::string& updatedName);
         void updateAccountBalance(const std::string& accountName, const int& balance);
         void addAccount(const Account& account);
-        void removeAccount(const std::string& accountName);
+        bool removeAccount(const std::string& accountName);
 };
 
 #endif
