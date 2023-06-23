@@ -13,6 +13,7 @@ class System {
         ~System();
         System& operator=(const System& other);
         Authentication getToken() const;
+        Client getCurrentClient() const;
         Client getClient(const std::string& email) const;
         Database getDatabase() const;
         void displayUserInfo() const;
