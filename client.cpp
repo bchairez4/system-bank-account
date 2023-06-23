@@ -20,6 +20,7 @@ Client::Client(const std::string& firstName, const std::string& lastName, const 
 
 Client::Client(const Client& other) 
 : User(other.getFirstName(), other.getLastName(), other.getEmail(), other.getPassword()), pin_(other.pin_) {
+    accounts_.clear();
     for (int i = 0; i < other.accounts_.size(); ++i) {
         accounts_.push_back(other.accounts_[i]);
     }
@@ -179,10 +180,10 @@ void Client::addAccount(const Account& account) {
     accounts_.push_back(account);
 }
 
-void Client::removeAccount(const std::string& accountName) {
+bool Client::removeAccount(const std::string& accountName) {
     if (!contains(accountName)) {
         std::cout << "Error. \'" << accountName << "\' does not exist as an account." << '\n';
-        return;
+        return false;
     }
 
     std::vector<Account>::iterator it = accounts_.begin();
@@ -194,8 +195,9 @@ void Client::removeAccount(const std::string& accountName) {
 
     if (!it->zeroBalance()) {   //can't close an account that still has money in it
         std::cout << "Error. \'" << it->getName() << "\' does not have a 0 balance! Please zero the account before closing." << '\n';
-        return;
+        return false;
     }
 
     accounts_.erase(it);
+    return true;
 }
