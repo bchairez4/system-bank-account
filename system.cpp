@@ -17,6 +17,10 @@ Authentication System::getToken() const {
     return token_;
 }
 
+Client System::getCurrentClient() const {
+    return token_.getCurrentUser();
+}
+
 Client System::getClient(const std::string& email) const {
     return database_.getClient(email);
 }
