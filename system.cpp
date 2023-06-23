@@ -105,12 +105,14 @@ void System::addAccount(const Client& client, const Account& account) {
     }
 }
 
-void System::closeAccount(const Client& client, const std::string& accountName) {
+bool System::closeAccount(const Client& client, const std::string& accountName) {
     std::unordered_map<std::string, Client>::iterator it = database_.find(client);
 
     if (it != database_.getDatabase().end()) {
-        it->second.removeAccount(accountName);
+        return it->second.removeAccount(accountName);
     }
+
+    return false;
 }
 
 void System::updateCustomerAccount(const Client& client, const Account& oldAccount, const Account& newAccount) {
