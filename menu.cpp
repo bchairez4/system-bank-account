@@ -205,7 +205,7 @@ void Menu::signIn() {
             return;
         }
 
-        std::cout << "Welcome back " << sys_.getToken().getCurrentUser().getFullName() << "!" <<  '\n';
+        std::cout << "Welcome back " << sys_.getCurrentClient().getFullName() << "!" <<  '\n';
     }
 }
 
@@ -407,7 +407,7 @@ void Menu::deposit() {
     std::getline(std::cin, accountName);
     std::cout << '\n';
 
-    if (!sys_.containsCustomerAccount(sys_.getToken().getCurrentUser(), accountName)) {
+    if (!sys_.containsCustomerAccount(sys_.getCurrentClient(), accountName)) {
         std::cout << "Error. \'" << accountName << "\' does not exist as an account." << '\n';
         return;
     }
@@ -440,12 +440,12 @@ void Menu::withdrawl() {
     std::getline(std::cin, accountName);
     std::cout << '\n';
 
-    if (!sys_.containsCustomerAccount(sys_.getToken().getCurrentUser(), accountName)) {
+    if (!sys_.containsCustomerAccount(sys_.getCurrentClient(), accountName)) {
         std::cout << "Error. \'" << accountName << "\' does not exist as an account." << '\n';
         return;
     }
 
-    std::cout << "Current balance: $" << sys_.getCustomerAccountBalance(sys_.getToken().getCurrentUser(), accountName) << '\n';
+    std::cout << "Current balance: $" << sys_.getCustomerAccountBalance(sys_.getCurrentClient(), accountName) << '\n';
     std::cout << "How much would you like to withdrawl? $";
     std::cin >> amount;
     std::cin.ignore();
@@ -473,7 +473,7 @@ void Menu::openAccount() {
 
     Account newAccount(name);
 
-    sys_.addAccount(sys_.getToken().getCurrentUser(), newAccount);
+    sys_.addAccount(sys_.getCurrentClient(), newAccount);
 
     std::cout << "Success! Added \'" << name << "\' to your accounts." << '\n'; 
 }
@@ -488,12 +488,12 @@ void Menu::closeAccount() {
     std::getline(std::cin, accountName);
     std::cout << '\n';
 
-    if (!sys_.containsCustomerAccount(sys_.getToken().getCurrentUser(), accountName)) {
+    if (!sys_.containsCustomerAccount(sys_.getCurrentClient(), accountName)) {
         std::cout << "Error. \'" << accountName << "\' does not exist as an account." << '\n';
         return;
     }
 
-    if (sys_.closeAccount(sys_.getToken().getCurrentUser(), accountName)) {
+    if (sys_.closeAccount(sys_.getCurrentClient(), accountName)) {
         std::cout << "Success! Removed \'" << accountName << "\' from your accounts." << '\n';
     }
 }
@@ -508,7 +508,7 @@ void Menu::updateAccount() {
     std::getline(std::cin, oldAccountName);
     std::cout << '\n';
 
-    if (!sys_.containsCustomerAccount(sys_.getToken().getCurrentUser(), oldAccountName)) {
+    if (!sys_.containsCustomerAccount(sys_.getCurrentClient(), oldAccountName)) {
         std::cout << "Error. \'" << oldAccountName << "\' does not exist as an account." << '\n';
         return;
     }
@@ -517,11 +517,11 @@ void Menu::updateAccount() {
     std::getline(std::cin, newAccountName);
     std::cout << '\n';
 
-    Account oldAccount = sys_.getCustomerAccount(sys_.getToken().getCurrentUser(), oldAccountName);
+    Account oldAccount = sys_.getCustomerAccount(sys_.getCurrentClient(), oldAccountName);
     Account newAccount = oldAccount;
     newAccount.setName(newAccountName);
 
-    sys_.updateCustomerAccount(sys_.getToken().getCurrentUser(), oldAccount, newAccount);
+    sys_.updateCustomerAccount(sys_.getCurrentClient(), oldAccount, newAccount);
 
     std::cout << "Successfully updated " << newAccountName << "." << '\n';
 }
@@ -574,7 +574,7 @@ void Menu::editUserProfile() {
         newClient.updatePin(pin);
     }
 
-    sys_.updateCustomer(sys_.getToken().getCurrentUser(), newClient);
+    sys_.updateCustomer(sys_.getCurrentClient(), newClient);
 
     std::cout << "Successfully updated account." << '\n';
 }
