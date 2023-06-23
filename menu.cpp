@@ -493,9 +493,9 @@ void Menu::closeAccount() {
         return;
     }
 
-    sys_.closeAccount(sys_.getToken().getCurrentUser(), accountName);
-
-    std::cout << "Success! Removed \'" << accountName << "\' from your accounts." << '\n'; 
+    if (sys_.closeAccount(sys_.getToken().getCurrentUser(), accountName)) {
+        std::cout << "Success! Removed \'" << accountName << "\' from your accounts." << '\n';
+    }
 }
 
 void Menu::updateAccount() {
