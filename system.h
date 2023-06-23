@@ -13,12 +13,15 @@ class System {
         ~System();
         System& operator=(const System& other);
         Authentication getToken() const;
+        Client getClient(const std::string& email) const;
         Database getDatabase() const;
         void displayUserInfo() const;
         void displayDatabase() const;
         bool authorize(const int& pin) const;
         bool contains(const std::string& email) const;
         bool containsCustomerAccount(const Client& client, const std::string& accountName) const;
+        bool isSignedInCustomer() const;
+        bool isSignedInAdmin() const;
         void signIn(const std::string& email, const std::string& password);
         void signOut();
         void addCustomer(const Client& client);
