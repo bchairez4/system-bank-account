@@ -8,8 +8,8 @@ Menu::Menu() {
     char exit_ = ' ';
     
     while (exit_ != 'q') {
-        if (sys_.getToken().isSignedIn()) {
-            if (sys_.getToken().isAdmin()) {
+        if (sys_.isSignedInCustomer()) {
+            if (sys_.isSignedInAdmin()) {
                 displayAdminMenu();
                 exit_ = admin();
             } else {
